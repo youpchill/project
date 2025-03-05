@@ -1,0 +1,178 @@
+import customtkinter as ctk
+import string
+alphabet = string.ascii_lowercase
+alphabet1 = string.ascii_uppercase
+
+
+russian_alphabet_lowercase = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р',
+                              'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']
+
+
+russian_alphabet_uppercase = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р',
+                              'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я']
+
+
+def caesar_cipher(s1, step):
+    s_new = ''
+    for elem in s1:
+        if elem.isalpha():
+            if elem.isupper():
+                if elem in alphabet1:
+                    a = alphabet1.index(elem)
+                    b = (a + step) % 26
+                    c = alphabet1[b]
+                    s_new += c
+                else:
+                    a = russian_alphabet_uppercase.index(elem)
+                    b = (a + step) % 26
+                    c = russian_alphabet_uppercase[b]
+                    s_new += c
+            else:
+                if elem in alphabet:
+                    a = alphabet.index(elem)
+                    b = (a + step) % 26
+                    c = alphabet[b]
+                    s_new += c
+                else:
+                    a = russian_alphabet_lowercase.index(elem)
+                    b = (a + step) % 26
+                    c = russian_alphabet_lowercase[b]
+                    s_new += c
+        else:
+            s_new += elem
+    return s_new
+
+
+def a1z26_cipher(s1):
+    s_new = ''
+    for i in range(0, len(s1)):
+        if s1[i].isalpha():
+            if s1[i].isupper():
+                if s1[i] in alphabet1:
+                    b = alphabet1.index(s1[i])
+                    b += 1
+                    s_new += str(b)
+                    if i + 1 != len(s1) and s1[i + 1].isalpha():
+                        s_new += '-'
+                else:
+                    b = russian_alphabet_uppercase.index(s1[i])
+                    b += 1
+                    s_new += str(b)
+                    if i + 1 != len(s1) and s1[i + 1].isalpha():
+                        s_new += '-'
+
+            else:
+                if s1[i] in alphabet:
+                    b = alphabet.index(s1[i])
+                    b += 1
+                    s_new += str(b)
+                    if i + 1 != len(s1) and s1[i + 1].isalpha():
+                        s_new += '-'
+                else:
+                    b = russian_alphabet_lowercase.index(s1[i])
+                    b += 1
+                    s_new += str(b)
+                    if i + 1 != len(s1) and s1[i + 1].isalpha():
+                        s_new += '-'
+        else:
+            s_new += s1[i]
+    return s_new
+
+
+def atbash_cipher(s2):
+    a_new = ''
+    for i in range(0, len(s2)):
+        if s2[i].isalpha():
+            if s2[i].isupper():
+                if s2[i] in alphabet1:
+                    b = alphabet1.index(s2[i])
+                    c = 25 - b
+                    e = alphabet1[c]
+                    a_new += e
+                else:
+                    b = russian_alphabet_uppercase.index(s2[i])
+                    c = 32 - b
+                    e = russian_alphabet_uppercase[c]
+                    a_new += e
+            else:
+                if s2[i] in alphabet:
+                    b = alphabet.index(s2[i])
+                    c = 25 - b
+                    e = alphabet[c]
+                    a_new += e
+                else:
+                    b = russian_alphabet_lowercase.index(s2[i])
+                    c = 32 - b
+                    e = russian_alphabet_lowercase[c]
+                    a_new += e
+        else:
+            a_new += s2[i]
+    return a_new
+
+
+def handler_choose_combobox(selected_value):
+    if selected_value == "Шифр Цезаря":
+        widget_entry.grid(row=2, column=0)
+        widget_entry.configure(placeholder_text='Укажите шаг')
+    else:
+        widget_entry.grid_forget()
+def handler_accept():
+    cipher = widget_combobox.get()
+    if cipher == "Шифр Цезаря":
+        step = widget_entry.get()
+        step = int(step)
+    row = widget_entry1.get()
+    if cipher == "Шифр Атбаша":
+        m = atbash_cipher(row)
+    if cipher == "Шифр a1z26":
+        m = a1z26_cipher(row)
+    if cipher == "Шифр Цезаря":
+        m = caesar_cipher(row, step)
+    widget_entry2.insert()
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("dark-blue")
+
+
+root = ctk.CTk()
+root.title("Программа шифрования")
+root.geometry("1000x500")
+my_font = ctk.CTkFont(family="Roboto", size=20)
+
+widget_label = ctk.CTkLabel(master=root)
+widget_label.configure(text="Программа шифрования", font=my_font)
+
+elems = ["Шифр Цезаря", "Шифр Атбаша", "Шифр a1z26"]
+widget_combobox = ctk.CTkComboBox(master=root)
+widget_combobox.configure(font=my_font, values=elems, state="readonly", width=400, command=handler_choose_combobox)
+widget_combobox.set("Выберите шифр")
+
+widget_entry = ctk.CTkEntry(master=root)
+widget_entry.configure(font=my_font, placeholder_text="", width=250)
+
+widget_entry1 = ctk.CTkEntry(master=root)
+widget_entry1.configure(font=my_font, placeholder_text="Строка, которую хотите зашифровать", width=371)
+widget_entry2 = ctk.CTkEntry(master=root)
+widget_entry2.configure(font=my_font, width=250, state='readonly')
+
+widget_button = ctk.CTkButton(master=root)
+widget_button.configure(font=my_font, text='Принять', command=handler_accept)
+
+rows, columns = 6, 1
+for i in range(rows):
+    root.rowconfigure(index=i, weight=1)
+for i in range(columns):
+    root.columnconfigure(index=i, weight=1)
+
+widget_label.grid(row=0, column=0)
+widget_combobox.grid(row=1, column=0)
+widget_entry.grid(row=2, column=0)
+widget_entry1.grid(row=3, column=0)
+widget_entry2.grid(row=4, column=0)
+widget_button.grid(row=5, column=0)
+
+root.mainloop()
