@@ -1,0 +1,49 @@
+import customtkinter as ctk
+
+
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("green")
+
+root = ctk.CTk()
+root.title("Работа с графикой на холсте Canvas")
+root.geometry("1000x500")
+my_font = ctk.CTkFont(family="Roboto", size=20)
+
+canvas = ctk.CTkCanvas(master=root)
+canvas.configure(width=400, height=400, background="white")
+
+def f(n):
+    if n == 1:
+        canvas.create_line((50, 50), (50, 400), width=10, fill="brown")
+    elif n == 2:
+        canvas.create_line((45, 50), (255, 50), width=10, fill="brown")
+    elif n == 3:
+        canvas.create_line((250, 50), (250, 100), width=10, fill="brown")
+    elif n == 4:
+        canvas.create_line((50, 100), (100, 50), width=10, fill="brown")
+    elif n == 5:
+        canvas.create_oval((275, 150), (225, 100), width=3, fill="yellow", outline="black")
+    elif n == 6:
+    elif n == 7:
+    elif n == 8:
+    elif n == 9:
+    
+
+
+canvas.create_line((50, 50), (50, 400), width=10, fill="brown") #вертикально
+canvas.create_line((45, 50), (255, 50), width=10, fill="brown") #горизонтально
+canvas.create_line((250, 50), (250, 100), width=10, fill="brown") #вертикально
+canvas.create_line((50, 100), (100, 50), width=10, fill="brown")
+canvas.create_oval((275, 150), (225, 100), width=3, fill="yellow", outline="black") #голова
+canvas.create_oval((275, 250), (225, 150), width=3, fill="yellow", outline="black") #тело
+canvas.create_oval((210, 290), (225, 160), width=3, fill="yellow", outline="black") #рука
+canvas.create_oval((275, 290), (290, 160), width=3, fill="yellow", outline="black") #рука
+canvas.create_oval((252, 370), (272, 245), width=3, fill="yellow", outline="black") #нога
+canvas.create_oval((228, 370), (248, 245), width=3, fill="yellow", outline="black") #нога
+canvas.create_oval((240, 115), (240, 115), width=3, fill="yellow", outline="black") #глаз
+canvas.create_oval((260, 115), (260, 115), width=3, fill="yellow", outline="black") #глаз
+canvas.create_oval((240, 130), (260, 130), width=3, fill="yellow", outline="black") #рот
+
+canvas.pack(pady=40)
+
+root.mainloop()
