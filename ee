@@ -1,0 +1,90 @@
+import customtkinter as ctk
+import random
+
+
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("green")
+
+root = ctk.CTk()
+root.title("Работа с графикой на холсте Canvas")
+root.geometry("1000x550")
+my_font = ctk.CTkFont(family="Roboto", size=20)
+
+canvas = ctk.CTkCanvas(master=root)
+canvas.configure(width=400, height=400, background="white")
+
+cnt = 0
+def handler_accept():
+    global cnt
+    m = widget_entry.get()
+    if m in random_word:
+        widget_entry1.delete(0, 'end')
+        for i in range(len(random_word)):
+                if random_word[i] == m:
+                    r[i] = m
+        widget_entry1.insert(0, " ".join(r))
+        if '_' not in r:
+            widget_entry1.configure(state='readonly')
+    else:
+        cnt += 1
+        f(cnt)
+
+
+def f(n):
+    if n == 1:
+        canvas.create_line((50, 50), (50, 400), width=10, fill="brown")#вертикально
+    elif n == 2:
+        canvas.create_line((45, 50), (255, 50), width=10, fill="brown")#горизонтально
+    elif n == 3:
+        canvas.create_line((250, 50), (250, 100), width=10, fill="brown")#вертикально
+    elif n == 4:
+        canvas.create_line((50, 100), (100, 50), width=10, fill="brown")
+    elif n == 5:
+        canvas.create_oval((275, 150), (225, 100), width=3, fill="yellow", outline="black")#голова
+    elif n == 6:
+        canvas.create_oval((275, 250), (225, 150), width=3, fill="yellow", outline="black")#тело
+    elif n == 7:
+        canvas.create_oval((210, 290), (225, 160), width=3, fill="yellow", outline="black")#рука
+    elif n == 8:
+        canvas.create_oval((275, 290), (290, 160), width=3, fill="yellow", outline="black")#рука
+    elif n == 9:
+        canvas.create_oval((252, 370), (272, 245), width=3, fill="yellow", outline="black")#нога
+    elif n == 10:
+        canvas.create_oval((228, 370), (248, 245), width=3, fill="yellow", outline="black")#нога
+    elif n == 11:
+        canvas.create_oval((240, 115), (240, 115), width=3, fill="yellow", outline="black")#глаз
+    elif n == 12:
+        canvas.create_oval((260, 115), (260, 115), width=3, fill="yellow", outline="black")#глаз
+    elif n == 13:
+        canvas.create_oval((240, 130), (260, 130), width=3, fill="yellow", outline="black")#рот
+
+
+words = ['машина', 'магазин', 'туалет', 'стол', 'карандаш', 'автобус', 'гитара', 'скрипка', 'губка', 'швабра', 'стена',
+         'телефон', 'газета', 'агент', 'оружие', 'мясо', 'интернет', 'мышь', 'собака', 'кошка', 'ручка', 'рука', 'окно']
+random_word = random.choice(words)
+r = ['_'] * len(random_word)
+
+widget_entry = ctk.CTkEntry(master=root)
+widget_entry.configure(font=my_font, placeholder_text="Введите букву", width=250)
+
+widget_entry1 = ctk.CTkEntry(master=root)
+widget_entry1.configure(font=my_font, width=250)
+widget_entry1.insert(0, " ".join(r))
+widget_entry1.configure(state='readonly')
+
+
+widget_button = ctk.CTkButton(master=root)
+widget_button.configure(text="Кнопка", font=my_font, command=handler_accept)
+
+
+rows, columns = 3, 1
+for i in range(rows):
+    root.rowconfigure(index=i, weight=1)
+for i in range(columns):
+    root.columnconfigure(index=i, weight=1)
+canvas.grid(row=0,column=0)
+widget_entry.grid(row=2, column=0)
+widget_entry1.grid(row=1, column=0)
+widget_button.grid(row=3, column=0)
+
+root.mainloop()
