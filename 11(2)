@@ -1,0 +1,26 @@
+import functools, string
+import random
+
+
+def cmp(elem1, elem2):
+    r1 = ((x2 - elem1[0]) ** 2 + (y2 - elem1[1]) ** 2) ** 0.5
+    r2 = ((elem2[0] - x) ** 2 + (elem2[1] - x2) ** 2) ** 0.5
+    if r1 > r2:
+        return 1
+    elif r1 < r2:
+        return -1
+    else:
+        return 0
+
+
+a = 15
+m = []
+for i in range(a):
+    x = random.randint(1, 10)
+    y = random.randint(1, 10)
+    m.append((x, y))
+x2 = random.randint(1, 10)
+y2 = random.randint(1, 10)
+m.sort(key=functools.cmp_to_key(cmp))
+print(m)
+print(x2, y2)
