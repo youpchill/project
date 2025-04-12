@@ -1,0 +1,26 @@
+import functools, string
+import random
+
+
+def cmp(elem1, elem2):
+    r = elem1[1] * 60
+    r2 = elem2[1] * 60
+    r_t = r + elem1[2]
+    r_t2 = r2 + elem2[2]
+    if r_t > r_t2:
+        return -1
+    elif r_t < r_t2:
+        return 1
+    else:
+        return 0
+
+
+a = 15
+m = []
+for i in range(a):
+    event = "".join([random.choice(string.ascii_lowercase) for i in range(random.randint(3, 10))])
+    time_hour = random.randint(0, 12)
+    time_min = random.randint(0, 60)
+    m.append((event, time_hour, time_min))
+m.sort(key=functools.cmp_to_key(cmp))
+print(m)
