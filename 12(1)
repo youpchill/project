@@ -1,0 +1,10 @@
+with open(file="my_file.txt", mode="r", encoding="utf-8") as file_in:
+    lines = []
+    for line in file_in:
+        lines.append(line)
+a = lines.pop()
+b = []
+for elem in lines:
+    if a in elem.lower():
+        b.append(elem)
+        print(elem)
