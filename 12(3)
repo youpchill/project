@@ -1,0 +1,14 @@
+with open(file="input.txt", mode="r", encoding="utf-8") as file_in:
+    lines = []
+    for line in file_in:
+        lines.extend(line.split())
+b = set()
+for elem in lines:
+    a = elem[::-1]
+    if elem.lower() == a.lower():
+        b.add(elem + '\n')
+
+
+
+with open(file="output.txt", mode="w", encoding="UTF-8") as file_out:
+    file_out.writelines(list(b))
