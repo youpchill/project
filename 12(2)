@@ -1,0 +1,16 @@
+with open(file="my_file.txt", mode="r", encoding="utf-8") as file_in:
+    lines = []
+    for line in file_in:
+        lines.append(line)
+b = []
+b_new = []
+for elem in lines:
+    if '#' in elem:
+        a = elem.index('#')
+        b_new = elem[0:a]
+        b.append(b_new + '\n')
+
+
+
+with open(file="my_file.txt", mode="w", encoding="UTF-8") as file_out:
+    file_out.writelines(b)
